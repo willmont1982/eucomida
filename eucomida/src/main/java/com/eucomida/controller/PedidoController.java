@@ -1,6 +1,7 @@
 package com.eucomida.controller;
 
-import com.eucomida.model.Pedido;
+import com.eucomida.dto.PedidoRequest;
+import com.eucomida.dto.PedidoResponse;
 import com.eucomida.service.PedidoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,21 +10,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private final PedidoService service;
+    private final PedidoService pedidoService;
 
-    public PedidoController(PedidoService service) {
-        this.service = service;
+    public PedidoController(PedidoService pedidoService) {
+        this.pedidoService = pedidoService;
     }
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody Pedido pedido) {
-        return ResponseEntity.ok(service.criar(pedido));
+    public ResponseEntity<PedidoResponse> criar(@RequestBody PedidoRequest pedidoRequest) {
+        PedidoResponse pedidoCriado = pedidoService.criar(pedidoRequest);
+        return ResponseEntity.ok(pedidoCriado);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscar(@PathVariable Long id) {
-        return service.buscar(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<PedidoResponse> buscar(@PathVariable Long id) {
+        return pedidoService.buscar(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
+
