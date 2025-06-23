@@ -1,0 +1,13 @@
+#!/bin/sh
+BASE_DIR=$(dirname "$0")
+MVNW_JAR="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+MVNW_PROPERTIES="$BASE_DIR/.mvn/wrapper/maven-wrapper.properties"
+
+if [ ! -f "$MVNW_JAR" ]; then
+  echo "Baixando Maven Wrapper..."
+  mkdir -p "$BASE_DIR/.mvn/wrapper"
+  curl -fsSL "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar" -o "$MVNW_JAR"
+  echo "distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.6/apache-maven-3.8.6-bin.zip" > "$MVNW_PROPERTIES"
+fi
+
+java -jar "$MVNW_JAR" "$@"
