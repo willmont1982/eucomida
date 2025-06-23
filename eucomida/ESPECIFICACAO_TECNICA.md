@@ -1,7 +1,3 @@
-# Documento Técnico
-
-## Próximos Passos
-
 # Documento Técnico: Próximos Passos e Justificativas
 
 ## Backend
